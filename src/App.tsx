@@ -1,45 +1,60 @@
 import React, { Component } from 'react';
+import Tabs from './Tabs';
 
-class Cmp extends Component {
-  componentWillUnmount() {
-    console.log('Cmp组件即将卸载');
-  }
-  render() {
-    return <div>我是Cmp组件</div>;
+interface IProps {
+  name: string;
+  age: number;
+  height: string;
+}
+class Cpn extends Component<IProps, any> {
+  render(): React.ReactNode {
+    const { name, age, height } = this.props;
+    return <h3>{name + ' ' + age + ' ' + height}</h3>;
   }
 }
 
-interface IState {
+class ClickButton extends Component<{ increment: (e) => void }, any> {
+  render(): React.ReactNode {
+    const { increment } = this.props;
+    return <button onClick={increment}>+1</button>;
+  }
+}
+
+interface IAppProps {
   count: number;
-  toggle: boolean;
+  tabs: Array<string>;
+  curIndex: number;
 }
-class App extends Component<any, IState> {
+class App extends Component<any, IAppProps> {
   constructor(props) {
     super(props);
     this.state = {
-      count: 1,
-      toggle: false,
+      count: 0,
+      tabs: ['首页', '稳健', '进阶', '我的'],
+      curIndex: 0,
     };
   }
-  componentDidMount() {
-    console.log('App组件挂载完成');
-  }
-  componentDidUpdate() {
-    console.log('App组件更新完成');
-  }
   render() {
+    const { count, tabs, curIndex } = this.state;
     return (
       <div>
-        <div>
-          <span>计数器: {this.state.count}</span>
-          <button onClick={(e) => this.setState({ count: this.state.count + 1 })}>+1</button>
-        </div>
-        <div>
-          <button onClick={(e) => this.setState({ toggle: !this.state.toggle })}>切换</button>
-          {this.state.toggle && <Cmp />}
-        </div>
+        {/* <Cpn name={'denis'} age={18} height={'1.88'} />
+        <h2>当前计数: {count}</h2>
+        <ClickButton increment={(e) => this.increment()} /> */}
+        <Tabs tabs={tabs} curIndex={curIndex} click={(index: number) => this.changeCurTab(index)}></Tabs>
+        <h2>{tabs[curIndex]}</h2>
       </div>
     );
+  }
+  changeCurTab(index) {
+    this.setState({
+      curIndex: index,
+    });
+  }
+  increment() {
+    this.setState({
+      count: this.state.count + 1,
+    });
   }
 }
 
