@@ -24,5 +24,6 @@ module.exports = {
   rules: {
     'react/react-in-jsx-scope': 'off',
     'no-var': 'error',
+    '@typescript-eslint/no-empty-interface': 0,
   },
 };

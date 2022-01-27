@@ -1,60 +1,66 @@
 import React, { Component } from 'react';
-import Tabs from './Tabs';
+import { IStates } from './types/App';
 
-interface IProps {
-  name: string;
-  age: number;
-  height: string;
-}
-class Cpn extends Component<IProps, any> {
-  render(): React.ReactNode {
-    const { name, age, height } = this.props;
-    return <h3>{name + ' ' + age + ' ' + height}</h3>;
-  }
+const { Provider: MyProvider, Consumer: MyConsumer } = React.createContext({
+  name: 'denis',
+  age: 23,
+  sex: 'boy',
+});
+const { Provider: ColorProvider, Consumer: ColorConsumer } = React.createContext({
+  color: 'red',
+});
+
+function ListHeader() {
+  return (
+    <MyConsumer>
+      {(value) => {
+        return (
+          <ColorConsumer>
+            {(theme) => {
+              return (
+                <div>
+                  <h2 style={theme}>用户昵称: {value.name}</h2>
+                  <h2>用户年龄: {value.age}</h2>
+                  <h2>用户性别: {value.sex}</h2>
+                </div>
+              );
+            }}
+          </ColorConsumer>
+        );
+      }}
+    </MyConsumer>
+  );
 }
 
-class ClickButton extends Component<{ increment: (e) => void }, any> {
-  render(): React.ReactNode {
-    const { increment } = this.props;
-    return <button onClick={increment}>+1</button>;
-  }
+function List() {
+  return (
+    <div>
+      <ListHeader />
+      <ul>
+        <li>1你好李焕英</li>
+        <li>2你好李焕英</li>
+        <li>3你好李焕英</li>
+      </ul>
+    </div>
+  );
 }
-
-interface IAppProps {
-  count: number;
-  tabs: Array<string>;
-  curIndex: number;
-}
-class App extends Component<any, IAppProps> {
+class App extends Component<any, IStates> {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
-      tabs: ['首页', '稳健', '进阶', '我的'],
-      curIndex: 0,
+      name: 'mariana',
+      age: 4,
+      sex: 'girl',
     };
   }
   render() {
-    const { count, tabs, curIndex } = this.state;
     return (
-      <div>
-        {/* <Cpn name={'denis'} age={18} height={'1.88'} />
-        <h2>当前计数: {count}</h2>
-        <ClickButton increment={(e) => this.increment()} /> */}
-        <Tabs tabs={tabs} curIndex={curIndex} click={(index: number) => this.changeCurTab(index)}></Tabs>
-        <h2>{tabs[curIndex]}</h2>
-      </div>
+      <MyProvider value={this.state}>
+        <ColorProvider value={{ color: 'aliceblue' }}>
+          <List />
+        </ColorProvider>
+      </MyProvider>
     );
-  }
-  changeCurTab(index) {
-    this.setState({
-      curIndex: index,
-    });
-  }
-  increment() {
-    this.setState({
-      count: this.state.count + 1,
-    });
   }
 }
 
