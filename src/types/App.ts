@@ -1,4 +1,8 @@
 export interface IProps {}
 export interface IStates {
-  counter: number;
+  friends: Array<{
+    id: number;
+    name: string;
+    age: number;
+  }>;
 }

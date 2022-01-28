@@ -1,62 +1,48 @@
-import React, { PureComponent, memo } from 'react';
+import React, { PureComponent } from 'react';
 import { IStates } from './types/App';
 
-class Header extends PureComponent {
-  render(): React.ReactNode {
-    console.log('render header');
-    return <h2>这是Header</h2>;
-  }
-}
-
-function Banner() {
-  console.log('render banner');
-  return <h2>这是Banner</h2>;
-}
-
-// 函数式组件如果要使用scu优化, 需要使用memo
-const Main = memo(function Main() {
-  console.log('render main');
-  return (
-    <section>
-      <Banner />
-      <ul>
-        <li>1这是Body li</li>
-        <li>2这是Body li</li>
-        <li>3这是Body li</li>
-      </ul>
-    </section>
-  );
-});
-
-class Footer extends PureComponent {
-  render(): React.ReactNode {
-    console.log('render footer');
-    return <h2>这是Footer</h2>;
-  }
-}
-class App extends PureComponent<any, IStates> {
+export class App extends PureComponent<any, IStates> {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0,
+      friends: [
+        { id: 1, name: 'lilei', age: 20 },
+        { id: 2, name: 'hanmei', age: 21 },
+        { id: 3, name: 'lihua', age: 22 },
+      ],
     };
   }
   render() {
-    console.log('render App');
     return (
       <div>
-        <h2>当前计数: {this.state.counter}</h2>
-        <button onClick={(e) => this.increment()}>+1</button>
-        <Header />
-        <Main />
-        <Footer />
+        <h2>用户资料</h2>
+        <ul>
+          {this.state.friends.map((friend, index) => {
+            return (
+              <li key={friend.id}>
+                姓名: {friend.name}
+                年龄: {friend.age}
+                <button onClick={() => this.addAge(index)}>年龄+1</button>
+              </li>
+            );
+          })}
+        </ul>
+        <button onClick={() => this.increment()}>新增资料</button>
       </div>
     );
   }
-
   increment() {
+    const newFriends = [...this.state.friends];
+    newFriends.push({ id: newFriends[newFriends.length - 1].id + 1, name: 'lucy', age: 23 });
     this.setState({
-      counter: this.state.counter + 1,
+      friends: newFriends,
+    });
+  }
+  addAge(index) {
+    const newFriends = [...this.state.friends];
+    newFriends[index].age += 1;
+    this.setState({
+      friends: newFriends,
     });
   }
 }
