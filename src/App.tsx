@@ -1,66 +1,63 @@
-import React, { Component } from 'react';
+import React, { PureComponent, memo } from 'react';
 import { IStates } from './types/App';
 
-const { Provider: MyProvider, Consumer: MyConsumer } = React.createContext({
-  name: 'denis',
-  age: 23,
-  sex: 'boy',
-});
-const { Provider: ColorProvider, Consumer: ColorConsumer } = React.createContext({
-  color: 'red',
-});
-
-function ListHeader() {
-  return (
-    <MyConsumer>
-      {(value) => {
-        return (
-          <ColorConsumer>
-            {(theme) => {
-              return (
-                <div>
-                  <h2 style={theme}>用户昵称: {value.name}</h2>
-                  <h2>用户年龄: {value.age}</h2>
-                  <h2>用户性别: {value.sex}</h2>
-                </div>
-              );
-            }}
-          </ColorConsumer>
-        );
-      }}
-    </MyConsumer>
-  );
+class Header extends PureComponent {
+  render(): React.ReactNode {
+    console.log('render header');
+    return <h2>这是Header</h2>;
+  }
 }
 
-function List() {
+function Banner() {
+  console.log('render banner');
+  return <h2>这是Banner</h2>;
+}
+
+// 函数式组件如果要使用scu优化, 需要使用memo
+const Main = memo(function Main() {
+  console.log('render main');
   return (
-    <div>
-      <ListHeader />
+    <section>
+      <Banner />
       <ul>
-        <li>1你好李焕英</li>
-        <li>2你好李焕英</li>
-        <li>3你好李焕英</li>
+        <li>1这是Body li</li>
+        <li>2这是Body li</li>
+        <li>3这是Body li</li>
       </ul>
-    </div>
+    </section>
   );
+});
+
+class Footer extends PureComponent {
+  render(): React.ReactNode {
+    console.log('render footer');
+    return <h2>这是Footer</h2>;
+  }
 }
-class App extends Component<any, IStates> {
+class App extends PureComponent<any, IStates> {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'mariana',
-      age: 4,
-      sex: 'girl',
+      counter: 0,
     };
   }
   render() {
+    console.log('render App');
     return (
-      <MyProvider value={this.state}>
-        <ColorProvider value={{ color: 'aliceblue' }}>
-          <List />
-        </ColorProvider>
-      </MyProvider>
+      <div>
+        <h2>当前计数: {this.state.counter}</h2>
+        <button onClick={(e) => this.increment()}>+1</button>
+        <Header />
+        <Main />
+        <Footer />
+      </div>
     );
+  }
+
+  increment() {
+    this.setState({
+      counter: this.state.counter + 1,
+    });
   }
 }
 
