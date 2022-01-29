@@ -1,20 +1,30 @@
-import React, { createRef, forwardRef, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
+import { createPortal } from 'react-dom';
+import './style.css';
 
-const MyCpn = forwardRef<HTMLHeadingElement>(function FuncCpn(props, ref) {
-  return <h2 ref={ref}>MyCpn</h2>;
-});
+class Modal extends PureComponent<any, any> {
+  private el: HTMLDivElement = document.createElement('div');
+  componentDidMount() {
+    document.body.appendChild(this.el);
+  }
+  componentWillUnmount() {
+    document.body.removeChild(this.el);
+  }
+
+  render(): React.ReactNode {
+    return createPortal(this.props.children, this.el);
+  }
+}
 export class App extends PureComponent {
-  private myRef = createRef<HTMLHeadingElement>();
   render() {
     return (
       <div>
-        <MyCpn ref={this.myRef} />
-        <button onClick={() => this.handleClick()}>按钮</button>
+        <h2>Hello React</h2>
+        <Modal>
+          <h2 className="center">Modal</h2>
+        </Modal>
       </div>
     );
-  }
-  handleClick() {
-    console.log(this.myRef.current);
   }
 }
 

@@ -1,15 +1,6 @@
-.tabs-wrap {
-  display: flex;
-  height: 40px;
-  line-height: 40px;
-}
-
-.tabs-wrap .tab-item {
-  flex: 1;
-  text-align: center;
-}
-
-.tabs-wrap .tab-item.active span {
-  padding: 5px;
-  border-bottom: 2px solid red;
+.center {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
