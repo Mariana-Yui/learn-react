@@ -1,57 +1,59 @@
-/**
- * createRef获取原生DOM或组件
- */
-import React, { PureComponent, createRef } from 'react';
+import React, { PureComponent } from 'react';
 import { IStates } from './types/App';
 
-class Counter extends PureComponent<any, IStates> {
+type KeyOfIState = keyof IStates;
+
+export class App extends PureComponent<any, IStates> {
   constructor(props) {
     super(props);
     this.state = {
-      counter: 0,
+      username: '',
+      password: '',
+      fruit: '',
+      check: false,
     };
   }
-  render(): React.ReactNode {
-    return (
-      <div>
-        <h2>当前计数: {this.state.counter}</h2>
-        <button onClick={() => this.increment()}>Counter按钮</button>
-      </div>
-    );
-  }
-  increment() {
-    this.setState({
-      counter: this.state.counter + 1,
-    });
-  }
-}
-export class App extends PureComponent {
-  private titleRef = createRef<HTMLHeadingElement>();
-  private titleEl: HTMLHeadingElement | null = null;
-  private counterRef = createRef<Counter>();
   render() {
+    const { username, password, fruit } = this.state;
     return (
-      <div>
-        {/* <h2 ref="titleRef"></h2> 字符串创建ref方式已经废弃 */}
-        <h2>Hello SH</h2>
-        <h2 ref={this.titleRef}></h2>
-        <h2 ref={(arg) => (this.titleEl = arg)}></h2>
-        <button onClick={() => this.changeText()}>按钮</button>
-        <br />
-        <Counter ref={this.counterRef} />
-      </div>
+      <form>
+        <div>
+          <label htmlFor="username">用户:</label>
+          <input type="text" name="username" id="username" value={username} onChange={(e) => this.handleChange(e)} />
+        </div>
+        <div>
+          <label htmlFor="password">密码:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={(e) => this.handleChange(e)}
+          />
+        </div>
+        <div>
+          <label htmlFor="fruit">水果:</label>
+          <select name="fruit" id="fruit" value={fruit} onChange={(e) => this.handleChange(e)}>
+            <option value="apple">苹果</option>
+            <option value="banana">香蕉</option>
+            <option value="orange">橘子</option>
+          </select>
+        </div>
+        <button type="submit" onClick={(e) => this.handleSubmit(e)}>
+          提交
+        </button>
+      </form>
     );
   }
-  changeText() {
-    if (this.titleRef.current) {
-      this.titleRef.current.innerHTML = 'Hello World';
-    }
-    if (this.titleEl) {
-      this.titleEl.innerHTML = 'Hello React';
-    }
-    if (this.counterRef.current) {
-      this.counterRef.current.increment();
-    }
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value,
+    } as Pick<IStates, KeyOfIState>);
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const { username, password, fruit } = this.state;
+    console.log(username, password, fruit);
   }
 }
 

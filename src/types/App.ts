@@ -1,4 +1,7 @@
 export interface IProps {}
 export interface IStates {
-  counter: number;
+  username: string;
+  password: string;
+  fruit: string;
+  check: boolean;
 }
