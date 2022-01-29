@@ -1,59 +1,98 @@
-import React, { PureComponent } from 'react';
-import { IStates } from './types/App';
+/**
+ * 高阶组件(了解) hooks出现后使用频率减少
+ */
+/* eslint-disable react/prop-types */
+import React, { PureComponent, createContext } from 'react';
 
-type KeyOfIState = keyof IStates;
+const { Provider: UserProvider, Consumer: UserConsumer } = createContext({
+  name: 'default',
+  level: -1,
+  region: 'default',
+});
 
-export class App extends PureComponent<any, IStates> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      password: '',
-      fruit: '',
-      check: false,
-    };
-  }
-  render() {
-    const { username, password, fruit } = this.state;
+const withUser = (WrappedComponent) => {
+  return function NewUser(props) {
     return (
-      <form>
-        <div>
-          <label htmlFor="username">用户:</label>
-          <input type="text" name="username" id="username" value={username} onChange={(e) => this.handleChange(e)} />
-        </div>
-        <div>
-          <label htmlFor="password">密码:</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(e) => this.handleChange(e)}
-          />
-        </div>
-        <div>
-          <label htmlFor="fruit">水果:</label>
-          <select name="fruit" id="fruit" value={fruit} onChange={(e) => this.handleChange(e)}>
-            <option value="apple">苹果</option>
-            <option value="banana">香蕉</option>
-            <option value="orange">橘子</option>
-          </select>
-        </div>
-        <button type="submit" onClick={(e) => this.handleSubmit(e)}>
-          提交
-        </button>
-      </form>
+      <UserConsumer>
+        {(user) => {
+          return <WrappedComponent {...props} {...user} />;
+        }}
+      </UserConsumer>
     );
-  }
-  handleChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value,
-    } as Pick<IStates, KeyOfIState>);
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    const { username, password, fruit } = this.state;
-    console.log(username, password, fruit);
+  };
+};
+
+function User1(props) {
+  return <h2>{`姓名: ${props.name} 等级: ${props.level} 区域: ${props.region}`}</h2>;
+}
+function User2(props) {
+  return (
+    <ul>
+      <li>姓名: {props.name}</li>
+      <li>等级: {props.level}</li>
+      <li>区域: {props.region}</li>
+    </ul>
+  );
+}
+
+const NewUser1 = withUser(User1);
+const NewUser2 = withUser(User2);
+
+const withAuth = (WrappedComponent) => {
+  return function NewAuth(props) {
+    const { login } = props;
+    if (login) {
+      return <WrappedComponent {...props} />;
+    } else {
+      return <LoginPage {...props} />;
+    }
+  };
+};
+
+function CardPage() {
+  return <h2>CardPage</h2>;
+}
+
+function LoginPage() {
+  return <h2>LoginPage</h2>;
+}
+
+const AuthPage = withAuth(CardPage);
+
+const withRenderTime = (WrappedComponent) => {
+  return class NewTimeCpn extends PureComponent {
+    private startTime = 0;
+    private endTime = 0;
+    UNSAFE_componentWillMount() {
+      this.startTime = Date.now();
+    }
+    componentDidMount() {
+      this.endTime = Date.now();
+      const interval = this.endTime - this.startTime;
+      console.log(`${WrappedComponent.name}: 渲染耗时: ${interval}`);
+    }
+    render(): React.ReactNode {
+      return <WrappedComponent />;
+    }
+  };
+};
+
+function RenderCpn() {
+  return <img src="https://w.wallhaven.cc/full/z8/wallhaven-z8dg9y.png" />;
+}
+const NewTimeCpn = withRenderTime(RenderCpn);
+export class App extends PureComponent {
+  render() {
+    return (
+      <div>
+        <UserProvider value={{ name: '李雷', level: 99, region: '中国' }}>
+          <NewUser1 />
+          <NewUser2 />
+        </UserProvider>
+        <AuthPage login={true} />
+        <NewTimeCpn />
+      </div>
+    );
   }
 }
 
