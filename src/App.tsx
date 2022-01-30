@@ -1,16 +1,16 @@
-import React, { Fragment, PureComponent } from 'react';
-
+import React, { PureComponent } from 'react';
+import styled, { ThemeProvider } from 'styled-components';
+import Button from './Button';
+import Home from './Home';
+import Profile from './Profile';
 export class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    console.log('App constructor');
-  }
   render() {
     return (
-      // 短语法<> </>
-      <Fragment>
-        <h2>Hello React</h2>
-      </Fragment>
+      <ThemeProvider theme={{ fontSize: '20px', themeColor: 'gray', themeBgColor: 'aliceblue' }}>
+        <Home />
+        <Profile />
+        <Button />
+      </ThemeProvider>
     );
   }
 }
