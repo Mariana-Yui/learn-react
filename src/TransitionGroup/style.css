@@ -1,0 +1,13 @@
+.name-enter {
+  opacity: 0;
+  transform: translateY(100%);
+}
+.name-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 300ms;
+}
+.name-enter-done {
+  opacity: 1;
+  transform: translateY(0);
+}

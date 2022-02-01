@@ -1,33 +1,17 @@
 import React, { PureComponent } from 'react';
-import CommentInput from './CommentInput';
-import CommentItem from './CommentItem';
+import CardTransition from './CSSTransition';
+import ButtonTransition from './SwitchTransition';
+import ListTransition from './TransitionGroup';
 
-export class App extends PureComponent {
-  state = {
-    comments: [],
-  };
-
+export class App extends PureComponent<any, any> {
   render() {
     return (
-      <div style={{ padding: '20px' }}>
-        {this.state.comments.map((comment: any, index) => {
-          return <CommentItem key={comment.id} comment={comment} deleteComment={() => this.deleteComment(index)} />;
-        })}
-        <CommentInput addComment={(info) => this.addComment(info)} />
+      <div style={{ margin: 20 }}>
+        <CardTransition />
+        <ButtonTransition />
+        <ListTransition />
       </div>
     );
-  }
-  addComment(info) {
-    this.setState({
-      comments: [...this.state.comments, info],
-    });
-  }
-  deleteComment(index) {
-    const newComments = [...this.state.comments];
-    newComments.splice(index, 1);
-    this.setState({
-      comments: newComments,
-    });
   }
 }
 
