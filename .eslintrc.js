@@ -19,11 +19,14 @@ module.exports = {
   },
   globals: {
     module: true,
+    require: true,
+    __dirname: true,
   },
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 'off',
     'no-var': 'error',
     '@typescript-eslint/no-empty-interface': 0,
+    '@typescript-eslint/no-var-requires': 0,
   },
 };

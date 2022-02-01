@@ -1,17 +1,33 @@
 import React, { PureComponent } from 'react';
-import styled, { ThemeProvider } from 'styled-components';
-import Button from './Button';
-import Home from './Home';
-import Profile from './Profile';
+import CommentInput from './CommentInput';
+import CommentItem from './CommentItem';
+
 export class App extends PureComponent {
+  state = {
+    comments: [],
+  };
+
   render() {
     return (
-      <ThemeProvider theme={{ fontSize: '20px', themeColor: 'gray', themeBgColor: 'aliceblue' }}>
-        <Home />
-        <Profile />
-        <Button />
-      </ThemeProvider>
+      <div style={{ padding: '20px' }}>
+        {this.state.comments.map((comment: any, index) => {
+          return <CommentItem key={comment.id} comment={comment} deleteComment={() => this.deleteComment(index)} />;
+        })}
+        <CommentInput addComment={(info) => this.addComment(info)} />
+      </div>
     );
+  }
+  addComment(info) {
+    this.setState({
+      comments: [...this.state.comments, info],
+    });
+  }
+  deleteComment(index) {
+    const newComments = [...this.state.comments];
+    newComments.splice(index, 1);
+    this.setState({
+      comments: newComments,
+    });
   }
 }
 
