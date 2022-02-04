@@ -4,7 +4,7 @@ import './style.css';
 
 export class ListTransition extends PureComponent<any, any> {
   state = {
-    list: ['lilei'],
+    list: [{ id: 0, name: 'lilei' }],
   };
   render() {
     return (
@@ -12,8 +12,11 @@ export class ListTransition extends PureComponent<any, any> {
         <TransitionGroup>
           {this.state.list.map((item, index) => {
             return (
-              <CSSTransition key={index} timeout={300} classNames="name">
-                <div>{item}</div>
+              <CSSTransition key={item.id} timeout={300} classNames="name">
+                <div>
+                  <span style={{ marginRight: 5 }}>{item.name}</span>
+                  <button onClick={() => this.removeName(index)}>删除</button>
+                </div>
               </CSSTransition>
             );
           })}
@@ -24,7 +27,13 @@ export class ListTransition extends PureComponent<any, any> {
   }
   addName() {
     this.setState({
-      list: [...this.state.list, 'hanmeimei'],
+      list: [...this.state.list, { id: this.state.list.length, name: 'hanmeimei' }],
+    });
+  }
+  removeName(index) {
+    console.log(index);
+    this.setState({
+      list: this.state.list.filter((v, indey) => indey !== index),
     });
   }
 }
