@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { changeBannersAction, changeRecommendsAction } from '@/store/actionCreator';
+import { getMultiDataAsyncAction } from '@/store/actionCreator';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -7,11 +7,7 @@ axios.defaults.baseURL = 'http://123.207.32.32:8000';
 
 class Home extends PureComponent<any, any> {
   componentDidMount() {
-    axios.get('/home/multidata').then((res) => {
-      const data = res.data.data;
-      this.props.changeRecommends(data.recommend.list);
-      this.props.changeBanners(data.banner.list);
-    });
+    this.props.getMultiDataAsync();
   }
   render() {
     return (
@@ -39,11 +35,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeRecommends(recommends) {
-    dispatch(changeRecommendsAction(recommends));
-  },
-  changeBanners(banners) {
-    dispatch(changeBannersAction(banners));
+  getMultiDataAsync() {
+    dispatch(getMultiDataAsyncAction());
   },
 });
 
