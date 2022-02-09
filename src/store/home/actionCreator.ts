@@ -1,23 +1,7 @@
 import axios from 'axios';
-import { ADD_NUM, SUB_NUM, INCREMENT, DECREMENT, CHANGE_BANNERS, CHANGE_RECOMMENDS } from './constants';
+import { CHANGE_BANNERS, CHANGE_RECOMMENDS } from './constants';
 
-export const addNumAction = (num) => ({
-  type: ADD_NUM,
-  num,
-});
-
-export const subNumAction = (num) => ({
-  type: SUB_NUM,
-  num,
-});
-
-export const incrementAction = () => ({
-  type: INCREMENT,
-});
-
-export const decrementAction = () => ({
-  type: DECREMENT,
-});
+axios.defaults.baseURL = 'http://123.207.32.32:8000';
 
 export const changeBannersAction = (banners) => ({
   type: CHANGE_BANNERS,

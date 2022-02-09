@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react';
-import { getMultiDataAsyncAction } from '@/store/actionCreator';
+import { getMultiDataAsyncAction } from '@/store/home/actionCreator';
 import { connect } from 'react-redux';
-import axios from 'axios';
-
-axios.defaults.baseURL = 'http://123.207.32.32:8000';
 
 class Home extends PureComponent<any, any> {
   componentDidMount() {
@@ -30,8 +27,8 @@ class Home extends PureComponent<any, any> {
 }
 
 const mapStateToProps = (state) => ({
-  recommends: state.recommends,
-  banners: state.banners,
+  recommends: state.home.recommends,
+  banners: state.home.banners,
 });
 
 const mapDispatchToProps = (dispatch) => ({

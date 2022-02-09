@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addNumAction, decrementAction, incrementAction, subNumAction } from '@/store/actionCreator';
+import { addNumAction, decrementAction, incrementAction, subNumAction } from '@/store/counter/actionCreator';
 
 function About(props: any) {
   return (
@@ -21,7 +21,7 @@ function About(props: any) {
 }
 
 const mapStateToProps = (state) => ({
-  counter: state.counter,
+  counter: state.counter.counter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
