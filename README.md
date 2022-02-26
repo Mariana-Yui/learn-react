@@ -9,6 +9,7 @@ v6 删除了 withRouter, 但提供了 polyfill 供 App.tsx 使用 history
 具体参见 src/App.tsx
 需要将 App component 内的 BrowserHistory 放到 index.tsx 中
 另外 location, params, history 都需要使用 usexxx 引入使用
+v6 中 useHistory 已被 useNavigate 替代
 
 ## Reach Router
 
