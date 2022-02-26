@@ -1,104 +1,38 @@
-import { Button } from 'antd';
-import React, { PureComponent } from 'react';
-import {
-  BrowserRouter,
-  Link,
-  NavLink,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams,
-  useRoutes,
-} from 'react-router-dom';
-// import About from './pages/about';
-// import Login from './pages/About/Login';
-// import Them from './pages/About/them';
-// import Us from './pages/About/us';
-// import Home from './pages/home';
-// import NoMatch from './pages/noMatch';
-// import Profile from './pages/profile';
-import GetRoutes from '@/router/index';
-import './style.scss';
+import React, { useState } from 'react';
+import ComplexStateHook from './hooks/01_useState';
+import MultiEffectHook from './hooks/02_useEffect';
+import UseContext from './hooks/03_useContext';
+import UseReducer from './hooks/04_useReducer';
+import UseCallback from './hooks/05_useCallback';
+import UseMemo from './hooks/06_useMemo';
+import UseRef from './hooks/07_useRef';
+import UseImperativeHandle from './hooks/08_useImperativeHandle';
+import UseLayoutEffect from './hooks/09_useLayoutEffect';
+import CustomDataStoreHook from './hooks/10_自定义hook/01_instance';
+import ShowScrollHook from './hooks/10_自定义hook/02_instance';
+import UserHook from './hooks/10_自定义hook/03_instance';
 
-export class App extends PureComponent<any, any> {
-  state = {
-    links: [
-      {
-        to: '/',
-        text: '首页',
-      },
-      {
-        to: '/about',
-        text: '关于',
-      },
-      {
-        to: '/profile',
-        text: '资料',
-      },
-      {
-        to: '/nomatch',
-        text: '法外之地',
-      },
-    ],
-  };
-  render() {
-    return (
-      <div>
-        <nav
-          style={{
-            borderBottom: 'solid 1px',
-            padding: '1rem',
-          }}>
-          {this.state.links.map((link) => {
-            // return (
-            //   <Link to={link.to} key={link.to}>
-            //     {link.text}
-            //   </Link>
-            // );
-            return (
-              <NavLink to={link.to} key={link.to} className={({ isActive }) => (isActive ? 'm-active' : '')}>
-                {link.text}
-              </NavLink>
-            );
-          })}
-          <Button type="primary" onClick={() => this.contactUs()}>
-            联系我们
-          </Button>
-        </nav>
-
-        <h2>Router-View</h2>
-
-        {/* v6Routes replace v5Switch 不再需要exact 默认精确匹配 */}
-        {/* <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />}>
-            <Route path="us/:id" element={<Us />} />
-            <Route path="login" element={<Login />} />
-            <Route path="them" element={<Them />} />
-          </Route>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NoMatch />} />
-        </Routes> */}
-        <GetRoutes />
-      </div>
-    );
-  }
-  contactUs() {
-    this.props.router.navigate('/about/us/1141');
-  }
+export default function App() {
+  const [show, setShow] = useState(true);
+  return (
+    <div>
+      <ComplexStateHook />
+      <>
+        {show && <MultiEffectHook />}
+        <button style={{ marginTop: 5 }} onClick={(e) => setShow(!show)}>
+          展示/隐藏MultiEffectJHook
+        </button>
+      </>
+      <UseContext />
+      <UseReducer />
+      <UseCallback />
+      <UseMemo />
+      <UseRef />
+      <UseImperativeHandle />
+      <UseLayoutEffect />
+      <CustomDataStoreHook />
+      <ShowScrollHook />
+      <UserHook />
+    </div>
+  );
 }
-
-// v6已不支持withRouter 需要↓polyfill
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const params = useParams();
-    return <Component {...props} router={{ location, navigate, params }} />;
-  }
-
-  return ComponentWithRouterProp;
-}
-
-export default withRouter(App);
