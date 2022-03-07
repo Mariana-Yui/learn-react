@@ -1944,6 +1944,14 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/redux-immutable@^4.0.2":
+  version "4.0.2"
+  resolved "https://mirrors.tencent.com/npm/@types%2fredux-immutable/-/redux-immutable-4.0.2.tgz#8c3c666c33130c6794280bc3dc7726bfa0cfacc7"
+  integrity sha512-nlnhJn9B+NtIemWnnNWO9arUioeHLNvYCADSSa+48c81y8VwutgHH3WHobX711KKrfhlMlEz3+Q9SYX3sxrYPg==
+  dependencies:
+    immutable "^4.0.0-rc.1"
+    redux "^4.0.0"
+
 "@types/resolve@1.17.1":
   version "1.17.1"
   resolved "https://mirrors.tencent.com/npm/@types%2fresolve/-/resolve-1.17.1.tgz"
@@ -5886,7 +5894,7 @@ immer@^9.0.7:
   resolved "https://mirrors.tencent.com/npm/immer/-/immer-9.0.7.tgz"
   integrity sha512-KGllzpbamZDvOIxnmJ0jI840g7Oikx58lBPWV0hUh7dtAyZpFqqrBZdKka5GlTwMTZ1Tjc/bKKW4VSFAt6BqMA==
 
-immutable@^4.0.0:
+immutable@^4.0.0, immutable@^4.0.0-rc.1:
   version "4.0.0"
   resolved "https://mirrors.tencent.com/npm/immutable/-/immutable-4.0.0.tgz#b86f78de6adef3608395efb269a91462797e2c23"
   integrity sha512-zIE9hX70qew5qTUjSS7wi1iwj/l7+m54KWU247nhM3v806UdGj1yDndXj+IOYxxtW9zyLI+xqFNZjTuDaLUqFw==
@@ -7538,6 +7546,11 @@ normalize-url@^6.0.1:
   version "6.1.0"
   resolved "https://mirrors.tencent.com/npm/normalize-url/-/normalize-url-6.1.0.tgz"
   integrity sha512-DlL+XwOy3NxAQ8xuC0okPgK46iuVNAK01YN7RueYBqqFeGsBjV9XmCAzAdgt+667bCl5kPh9EqKKDwnaPG1I7A==
+
+normalize.css@^8.0.1:
+  version "8.0.1"
+  resolved "https://mirrors.tencent.com/npm/normalize.css/-/normalize.css-8.0.1.tgz#9b98a208738b9cc2634caacbc42d131c97487bf3"
+  integrity sha512-qizSNPO93t1YUuUhP22btGOo3chcvDFqFaj2TRybP0DMxkHOCTYwp3n34fel4a31ORXy4m1Xq0Gyqpb5m33qIg==
 
 npm-run-path@^4.0.1:
   version "4.0.1"
@@ -9339,6 +9352,11 @@ redent@^3.0.0:
   dependencies:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
+
+redux-immutable@^4.0.0:
+  version "4.0.0"
+  resolved "https://mirrors.tencent.com/npm/redux-immutable/-/redux-immutable-4.0.0.tgz#3a1a32df66366462b63691f0e1dc35e472bbc9f3"
+  integrity sha1-Ohoy32Y2ZGK2NpHw4dw15HK7yfM=
 
 redux-thunk@^2.4.1:
   version "2.4.1"

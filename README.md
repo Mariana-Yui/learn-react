@@ -13,3 +13,7 @@ v6 删除了 withRouter, 但提供了 polyfill 供 App.tsx 使用 history
 ## Reach Router
 
 [reach router](https://reach.tech/router/api/useLocation)
+
+## React 网易云音乐项目
+
+1. `useSelect`默认使用`===`, 对于返回对象而言会引起不必要的渲染, 第二个参数可以传入`shallowEqual`

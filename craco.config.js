@@ -21,4 +21,15 @@ module.exports = {
       components: resolve('src/components'),
     },
   },
+  devServer: {
+    proxy: {
+      '/api/': {
+        target: 'http://127.0.0.1:1997',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/': '/',
+        },
+      },
+    },
+  },
 };
