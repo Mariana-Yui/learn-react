@@ -1,0 +1,28 @@
+.slide-bar-appear,
+.slide-bar-enter {
+  transform: translateY(100%) !important;
+}
+
+.slide-bar-appear-active,
+.slide-bar-enter-active {
+  transform: translateY(0) !important;
+  transition: transform 300ms ease-in-out;
+}
+
+.slide-bar-appear-done,
+.slide-bar-enter-done {
+  transform: translateY(0) !important;
+}
+
+.slide-bar-exit {
+  transform: translateY(0) !important;
+}
+
+.slide-bar-exit-active {
+  transform: translateY(100%) !important;
+  transition: transform 500ms linear;
+}
+
+.slide-bar-exit-done {
+  transform: translateY(100%) !important;
+}
