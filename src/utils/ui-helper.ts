@@ -1,8 +1,7 @@
-export function scrollTo(element: Element, to: number, duration: number) {
+export async function scrollTo(element: Element, to: number, duration: number, perFrameTime) {
   if (duration <= 0) return;
   const difference = to - element.scrollTop;
-  const perFrame = (difference / duration) * 8;
-
+  const perFrame = (difference / duration) * perFrameTime;
   const scroll = () => {
     element.scrollTop += perFrame;
     if (element.scrollTop < to) {
@@ -12,7 +11,7 @@ export function scrollTo(element: Element, to: number, duration: number) {
   window.requestAnimationFrame(scroll);
 }
 
-export function getScreenFps(targetCount = 50) {
+export function getScreenFps(targetCount = 50): Promise<number> {
   return new Promise((resolve) => {
     const startTimestamp = Date.now();
     let count = 0;

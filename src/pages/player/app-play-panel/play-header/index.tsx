@@ -6,8 +6,8 @@ import { HeaderLeft, HeaderRight, HeaderWrapper } from './style';
 const PlayHeader = memo(() => {
   const { playList, currentSong } = useSelector(
     (state: RootState) => ({
-      playList: state.getIn(['player', 'playList']),
-      currentSong: state.getIn(['player', 'currentSong']),
+      playList: state.getIn(['player', 'playList']) as any[],
+      currentSong: state.getIn(['player', 'currentSong']) as any,
     }),
     shallowEqual,
   );

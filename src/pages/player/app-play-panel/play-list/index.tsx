@@ -8,8 +8,8 @@ import { PlayListWrapper } from './style';
 const PlayList = memo(() => {
   const { playList, currentSongIndex } = useSelector(
     (state: RootState) => ({
-      playList: state.getIn(['player', 'playList']),
-      currentSongIndex: state.getIn(['player', 'curentSongIndex']),
+      playList: state.getIn(['player', 'playList']) as any[],
+      currentSongIndex: state.getIn(['player', 'currentSongIndex']) as number,
     }),
     shallowEqual,
   );
@@ -18,7 +18,7 @@ const PlayList = memo(() => {
     <PlayListWrapper>
       {playList.map((item, index) => {
         return (
-          <div key={item.id} className={classNames('play-item', { active: currentSongIndex })}>
+          <div key={item.id} className={classNames('play-item', { active: index === currentSongIndex })}>
             <div className="left">{item.name}</div>
             <div className="right">
               <span className="singer">{item.ar[0].name}</span>

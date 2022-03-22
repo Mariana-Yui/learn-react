@@ -10,14 +10,15 @@ const defaultState = Map({
   simiPlayList: [],
   simiSongs: [],
   currentLyricIndex: 0,
+  currentSongIndex: 0,
 });
 
 const reducer = (state = defaultState, action: TypeReducerAction) => {
   switch (action.type) {
     case actionType.CHANGE_CURRENT_SONG:
       return state.set('currentSong', action.song);
-    case actionType.CHANGE_LYRIC:
-      return state.set('currentLyrics', action.lyrics);
+    case actionType.CHANGE_CURRENT_LYRIC:
+      return state.set('currentLyrics', action.currentLyrics);
     case actionType.CHANGE_SIMI_PLAYLIST:
       return state.set('simiPlayList', action.simiPlayList);
     case actionType.CHANGE_SIMI_SONGS:
@@ -26,6 +27,10 @@ const reducer = (state = defaultState, action: TypeReducerAction) => {
       return state.set('playList', action.playList);
     case actionType.CHANGE_PLAY_SEQUENCE:
       return state.set('playSequence', action.sequence);
+    case actionType.CHANGE_CURRENT_LYRIC_INDEX:
+      return state.set('currentLyricIndex', action.index);
+    case actionType.CHANGE_CURRENT_SONG_INDEX:
+      return state.set('currentSongIndex', action.index);
     default:
       return state;
   }

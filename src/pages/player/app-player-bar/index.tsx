@@ -145,11 +145,14 @@ const AppPlayerBar = memo(() => {
   );
 
   return (
-    <CSSTransition in={true} timeout={500} classNames="slide-bar">
+    <CSSTransition in={barSlide} timeout={500} classNames="slide-bar">
       <PlayerBarWrapper
         className="sprite_playbar"
         onMouseEnter={(e) => setBarSlide(true)}
-        onMouseLeave={(e) => setBarSlide(false)}>
+        onMouseLeave={(e) => {
+          setBarSlide(false);
+          setShowPanel(false);
+        }}>
         <div className="lock"></div>
         <div className="content wrap-v2">
           <Control isPlaying={isPlaying}>
@@ -199,7 +202,9 @@ const AppPlayerBar = memo(() => {
               <button
                 className="sprite_playbar btn loop"
                 onClick={(e) => dispatch(changePlaySequenceAction(playSequence + 1))}></button>
-              <button className="sprite_playbar btn playlist">{playList.length}</button>
+              <button className="sprite_playbar btn playlist" onClick={(e) => setShowPanel(true)}>
+                {playList.length}
+              </button>
             </div>
           </Operator>
         </div>
