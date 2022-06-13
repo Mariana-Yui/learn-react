@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
 import { HomeWrapper, TitleWrapper } from './style';
+import style from './style.less';
 
 export class Home extends PureComponent {
   render() {
     return (
       <HomeWrapper>
-        <h2>我是Header信息</h2>
+        <h2 className={style.hd}>我是Header信息</h2>
         <TitleWrapper>我也是Header信息</TitleWrapper>
         <div className="banner">
           <span>轮播图1</span>
